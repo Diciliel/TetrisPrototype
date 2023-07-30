@@ -1,0 +1,11 @@
+D:\Projects\CSharp_Projects\TetrisPrototype\TetrisPrototype\bin\Debug\TetrisPrototype.exe.config
+D:\Projects\CSharp_Projects\TetrisPrototype\TetrisPrototype\bin\Debug\TetrisPrototype.exe
+D:\Projects\CSharp_Projects\TetrisPrototype\TetrisPrototype\bin\Debug\TetrisPrototype.pdb
+D:\Projects\CSharp_Projects\TetrisPrototype\TetrisPrototype\obj\Debug\TetrisPrototype.csproj.AssemblyReference.cache
+D:\Projects\CSharp_Projects\TetrisPrototype\TetrisPrototype\obj\Debug\TetrisPrototype.csproj.SuggestedBindingRedirects.cache
+D:\Projects\CSharp_Projects\TetrisPrototype\TetrisPrototype\obj\Debug\TetrisPrototype.frmTetris.resources
+D:\Projects\CSharp_Projects\TetrisPrototype\TetrisPrototype\obj\Debug\TetrisPrototype.Properties.Resources.resources
+D:\Projects\CSharp_Projects\TetrisPrototype\TetrisPrototype\obj\Debug\TetrisPrototype.csproj.GenerateResource.cache
+D:\Projects\CSharp_Projects\TetrisPrototype\TetrisPrototype\obj\Debug\TetrisPrototype.csproj.CoreCompileInputs.cache
+D:\Projects\CSharp_Projects\TetrisPrototype\TetrisPrototype\obj\Debug\TetrisPrototype.exe
+D:\Projects\CSharp_Projects\TetrisPrototype\TetrisPrototype\obj\Debug\TetrisPrototype.pdb
