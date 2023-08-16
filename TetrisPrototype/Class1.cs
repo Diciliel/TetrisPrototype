@@ -15,7 +15,6 @@ namespace TetrisPrototype
         public int Height;
         public int[,] Dots;
         public uint shapeColor;
-
         private int[,] backupDots;
         public void turn() // sekli dondurur
         {

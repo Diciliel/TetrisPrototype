@@ -24,7 +24,8 @@ namespace TetrisPrototype
             timer.Interval = 400;
             timer.Start();
             this.KeyDown += Form1_KeyDown;
-            currentShape = getRandomShapeWithCenterAligned();
+            //
+            //currentShape = getRandomShapeWithCenterAligned();
             nextShape = getNextShape();
         }
 
@@ -32,7 +33,7 @@ namespace TetrisPrototype
         Graphics canvasGraphics;
         Bitmap workingBitmap;
         Graphics workingGraphics;
-        int canvasWidth = 15;
+        int canvasWidth = 10;
         int canvasHeight = 20;
         int[,] canvasDotArray;
         int dotSize = 20;
@@ -96,9 +97,6 @@ namespace TetrisPrototype
             drawShape();
             return true;
         }
-
-        
-
         private void drawShape() 
         {
             workingBitmap = new Bitmap(canvasBitmap);
@@ -206,7 +204,7 @@ namespace TetrisPrototype
                     score++;
                     lbl_score.Text = "Score: " + score*10;
                     lbl_Level.Text = "Level: " + score / 10;
-                    timer.Interval -= 20; // hizi arttirir
+                    timer.Interval -= 10; // hizi arttirir
 
                     for (j = 0; j < canvasWidth; j++) 
                     {
