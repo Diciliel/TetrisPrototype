@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EED2C4BB-D291-4C8E-B72B-B93BF77ECE3A}</ProjectGuid>
+    <ProjectGuid>{F16EA83F-9661-4130-8EBD-C01C45CFD2C2}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>TetrisPrototype</RootNamespace>
     <AssemblyName>TetrisPrototype</AssemblyName>
@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Class2.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
