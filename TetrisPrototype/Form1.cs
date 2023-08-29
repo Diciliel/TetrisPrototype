@@ -33,7 +33,7 @@ namespace TetrisPrototype
         Graphics canvasGraphics;
         Bitmap workingBitmap;
         Graphics workingGraphics;
-        int canvasWidth = 10;
+        int canvasWidth = 15;
         int canvasHeight = 20;
         int[,] canvasDotArray;
         int dotSize = 20;
@@ -106,7 +106,7 @@ namespace TetrisPrototype
             {
                 for (int j = 0; j < currentShape.Height; j++)
                 {
-                    if (currentShape.Dots[j, i] ==1)
+                    if (currentShape.Dots[j, i] > 0 )
                     {
                         Brush br = new SolidBrush(Color.FromArgb((int)currentShape.shapeColor));
                         workingGraphics.FillRectangle(br, (currentX + i) * dotSize + 1, (currentY + j) * dotSize + 1, dotSize - 2, dotSize - 2);
@@ -121,7 +121,7 @@ namespace TetrisPrototype
             {
                 for (int j = 0; j < currentShape.Height; j++) 
                 {
-                    if (currentShape.Dots[j,i] == 1) 
+                    if (currentShape.Dots[j,i] > 0) 
                     {
                         checkIfGameOver();
                         canvasDotArray[currentX + i, currentY + j] = 1;
@@ -135,7 +135,6 @@ namespace TetrisPrototype
             {
                 timer.Stop();
                 MessageBox.Show("Game Over");
-                Application.Restart();
             }
         }
 
@@ -221,9 +220,9 @@ namespace TetrisPrototype
                 for (int j = 0; j < canvasHeight; j++)
                 {
                     canvasGraphics = Graphics.FromImage(canvasBitmap); // 1 e esitse black boya degilse gray boya.
-                    canvasGraphics.FillRectangle(canvasDotArray[i, j] == 1 ? Brushes.Black : Brushes.LightGray, i * dotSize + 1, j * dotSize + 1, dotSize - 2, dotSize - 2); 
-                    //Brush br = new SolidBrush(Color.FromArgb((int)shapeColor));
-                    //canvasGraphics.FillRectangle(canvasDotArray[i, j] == 1 ? br : Brushes.LightGray, i * dotSize + 1, j * dotSize + 1, dotSize - 2, dotSize - 2);
+                    canvasGraphics.FillRectangle(canvasDotArray[i, j] > 0 ? Brushes.Black : Brushes.LightGray, i * dotSize + 1, j * dotSize + 1, dotSize - 2, dotSize - 2); 
+                    //Brush br = new SolidBrush(Color.FromArgb((int)currentShape.SColor));
+                    //canvasGraphics.FillRectangle(canvasDotArray[i, j] > 0 ? br : Brushes.LightGray, i * dotSize + 1, j * dotSize + 1, dotSize - 2, dotSize - 2);
                 }
             }
             pictureBox1.Image = canvasBitmap;
@@ -247,7 +246,7 @@ namespace TetrisPrototype
                 for (int j = 0; j < shape.Width; j++)
                 {
                    Brush br = new SolidBrush(Color.FromArgb((int)shape.shapeColor));
-                   nextShapeGraphics.FillRectangle(shape.Dots[i, j]== 1 ? br: Brushes.LightGray, (startX+j) * dotSize + 1, (startY+i) * dotSize + 1, dotSize - 2, dotSize - 2);
+                   nextShapeGraphics.FillRectangle(shape.Dots[i, j] > 0 ? br: Brushes.LightGray, (startX+j) * dotSize + 1, (startY+i) * dotSize + 1, dotSize - 2, dotSize - 2);
                  //nextShapeGraphics.FillRectangle(shape.Dots[i, j] == 1 ? Brushes.Black : Brushes.LightGray, (startX + j) * dotSize+1, (startY + i) * dotSize+1, dotSize-2, dotSize-2);
                 }
             }
@@ -257,6 +256,32 @@ namespace TetrisPrototype
             return shape;
         }
 
+        private void lbl_new_Click(object sender, EventArgs e)
+        {
+            timer.Start();
+            lbl_new.Enabled = false;
+            lbl_stop.Enabled = true;
+            lbl_exit.Enabled = false;
+        }
+
+        private void lbl_stop_Click(object sender, EventArgs e)
+        {
+            timer.Stop();
+            lbl_cont.Enabled = true;
+            lbl_stop.Enabled = false;
+        }
+
+        private void lbl_cont_Click(object sender, EventArgs e)
+        {
+            timer.Start();
+            lbl_cont.Enabled = false;
+            lbl_stop.Enabled = true;
+        }
+
+        private void lbl_exit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
     
 }
