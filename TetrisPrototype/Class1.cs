@@ -16,10 +16,13 @@ namespace TetrisPrototype
         public int[,] Dots;
         public uint shapeColor;
         private int[,] backupDots;
+        public int[,] canvasDotArray;
+        int canvasShape;
         public void turn() // sekli dondurur
         {
             backupDots = Dots;
             Dots = new int[Width, Height];
+
             for (int i = 0; i < Width; i++)
             {
                 for (int j = 0; j < Height; j++)

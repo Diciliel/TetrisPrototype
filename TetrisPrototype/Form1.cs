@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,8 +25,7 @@ namespace TetrisPrototype
             timer.Interval = 400;
             timer.Start();
             this.KeyDown += Form1_KeyDown;
-            //
-            //currentShape = getRandomShapeWithCenterAligned();
+
             nextShape = getNextShape();
         }
 
@@ -33,7 +33,7 @@ namespace TetrisPrototype
         Graphics canvasGraphics;
         Bitmap workingBitmap;
         Graphics workingGraphics;
-        int canvasWidth = 15;
+        int canvasWidth = 10;
         int canvasHeight = 20;
         int[,] canvasDotArray;
         int dotSize = 20;
@@ -42,17 +42,13 @@ namespace TetrisPrototype
         int score;
         Shape currentShape;
         Shape nextShape;
+        Shape canvasShape;
         Timer timer = new Timer();
 
         private void loadCanvas()
         {
-            pictureBox1.Width = canvasWidth * dotSize;
-            pictureBox1.Height = canvasHeight * dotSize;
-
             canvasBitmap = new Bitmap(pictureBox1.Width, pictureBox1.Height);
 
-            //canvasGraphics = Graphics.FromImage(canvasBitmap);
-            //canvasGraphics.FillRectangle(Brushes.LightGray, 0, 0, canvasBitmap.Width, canvasBitmap.Height);
             for (int i = 0; i < canvasWidth; i++)
             {
                 for (int j = 0; j < canvasHeight; j++)
@@ -70,7 +66,7 @@ namespace TetrisPrototype
         {
             var shape = ShapesHandler.GetRandomShapes();
 
-            currentX = 7;
+            currentX = 4;
             currentY = -shape.Height;
             return shape;
         }
@@ -86,7 +82,7 @@ namespace TetrisPrototype
             {
                 for (int j = 0; j < currentShape.Height; j++) 
                 {
-                    if (newY + j > 0 && canvasDotArray[newX + i, newY + j] == 1 && currentShape.Dots[j, i] == 1)
+                    if (newY + j > 0 && canvasDotArray[newX + i, newY + j] > 0 && currentShape.Dots[j, i] > 0)
                         return false;
                 }
             }
@@ -159,7 +155,7 @@ namespace TetrisPrototype
         private void Form1_KeyDown(object sender, KeyEventArgs e) 
         {
             var verticalMove = 0;
-            var horizontalMove =0;
+            var horizontalMove = 0;
 
             switch (e.KeyCode) 
             {
@@ -190,7 +186,7 @@ namespace TetrisPrototype
 
         public void clearFilledRowAndUpdateScore() // dolan satiri temizler, socre ve level tutar
         {
-            for (int i = 0; i < canvasHeight; i++) 
+            for (int i = 0; i < canvasHeight; i++) // her sirayi kontrol eder.
             {
                 int j;
                 for (j = canvasWidth - 1; j >= 0; j--) 
@@ -211,18 +207,18 @@ namespace TetrisPrototype
                         {
                             canvasDotArray[j, k] = canvasDotArray[j, k - 1]; 
                         }
-                        canvasDotArray[j, 0] = 0;
+                        canvasDotArray[j, 0] = 0;                                                
                     }
                 }
             }
-            for (int i = 0; i < canvasWidth; i++) 
+
+            for (int i = 0; i < canvasWidth; i++) // guncellenen DotArraye gore sekli cizer
             {
                 for (int j = 0; j < canvasHeight; j++)
                 {
-                    canvasGraphics = Graphics.FromImage(canvasBitmap); // 1 e esitse black boya degilse gray boya.
-                    canvasGraphics.FillRectangle(canvasDotArray[i, j] > 0 ? Brushes.Black : Brushes.LightGray, i * dotSize + 1, j * dotSize + 1, dotSize - 2, dotSize - 2); 
-                    //Brush br = new SolidBrush(Color.FromArgb((int)currentShape.SColor));
-                    //canvasGraphics.FillRectangle(canvasDotArray[i, j] > 0 ? br : Brushes.LightGray, i * dotSize + 1, j * dotSize + 1, dotSize - 2, dotSize - 2);
+                    canvasGraphics = Graphics.FromImage(canvasBitmap); // 1 e esitse blue boya degilse gray boya.
+                    Brush br = new SolidBrush(Color.FromArgb((int)currentShape.shapeColor));
+                    canvasGraphics.FillRectangle(canvasDotArray[i, j] == 1 ? br : Brushes.LightGray, i * dotSize + 1, j * dotSize + 1, dotSize - 2, dotSize - 2);                    
                 }
             }
             pictureBox1.Image = canvasBitmap;
@@ -234,9 +230,16 @@ namespace TetrisPrototype
         {
             var shape = getRandomShapeWithCenterAligned();
 
-            nextShapeBitmap = new Bitmap(6 * dotSize, 6 * dotSize);
-            nextShapeGraphics = Graphics.FromImage(nextShapeBitmap);
-            nextShapeGraphics.FillRectangle(Brushes.LightGray, 0, 0, nextShapeBitmap.Width, nextShapeBitmap.Height);
+            nextShapeBitmap = new Bitmap(pictureBox2.Width,pictureBox2.Height);
+
+            for (int i = 0; i < 6; i++)
+            {
+                for (int j = 0; j < 6; j++)
+                {
+                    nextShapeGraphics = Graphics.FromImage(nextShapeBitmap);
+                    nextShapeGraphics.FillRectangle(Brushes.LightGray, i * dotSize + 1, j * dotSize + 1, dotSize - 2, dotSize - 2);
+                }
+            }
 
             var startX = (6 - shape.Width) / 2;
             var startY = (6 - shape.Height) / 2;
@@ -247,7 +250,6 @@ namespace TetrisPrototype
                 {
                    Brush br = new SolidBrush(Color.FromArgb((int)shape.shapeColor));
                    nextShapeGraphics.FillRectangle(shape.Dots[i, j] > 0 ? br: Brushes.LightGray, (startX+j) * dotSize + 1, (startY+i) * dotSize + 1, dotSize - 2, dotSize - 2);
-                 //nextShapeGraphics.FillRectangle(shape.Dots[i, j] == 1 ? Brushes.Black : Brushes.LightGray, (startX + j) * dotSize+1, (startY + i) * dotSize+1, dotSize-2, dotSize-2);
                 }
             }
             pictureBox2.Size= nextShapeBitmap.Size;
