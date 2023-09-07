@@ -17,7 +17,17 @@ namespace TetrisPrototype
         public uint shapeColor;
         private int[,] backupDots;
         public int[,] canvasDotArray;
-        int canvasShape;
+
+        public Shape() { }
+        public Shape(Shape shape) 
+        {
+            Width = shape.Width;
+            Height = shape.Height;
+            Dots = shape.Dots;
+            shapeColor = shape.shapeColor;
+            backupDots = shape.backupDots;
+            canvasDotArray = shape.canvasDotArray;
+        }
         public void turn() // sekli dondurur
         {
             backupDots = Dots;

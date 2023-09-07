@@ -34,10 +34,10 @@ namespace TetrisPrototype
                     shapeColor = 0xff00c9a7,
                     Dots =new int [,]
                     {
-                        {2},
-                        {2},
-                        {2},
-                        {2}
+                        {1},
+                        {1},
+                        {1},
+                        {1}
                     }
                 },
                 new Shape
@@ -47,8 +47,8 @@ namespace TetrisPrototype
                     shapeColor = 0xFFFF6F91,
                     Dots = new int [,]
                     {
-                        {0,3,0},
-                        {3,3,3},
+                        {0,1,0},
+                        {1,1,1},
                     }
                 },
                 new Shape
@@ -58,8 +58,8 @@ namespace TetrisPrototype
                     shapeColor = 0xFFFF8066,
                     Dots = new int [,]
                     {
-                        {0,0,4},
-                        {4,4,4},
+                        {0,0,1},
+                        {1,1,1},
                     }
                 },
                 new Shape
@@ -69,8 +69,8 @@ namespace TetrisPrototype
                     shapeColor = 0xFFF9F871,
                     Dots = new int [,]
                     {
-                        {5,0,0},
-                        {5,5,5},
+                        {1,0,0},
+                        {1,1,1},
                     }
                 },
                 new Shape
@@ -80,8 +80,8 @@ namespace TetrisPrototype
                     shapeColor = 0xFF0081CF,
                     Dots = new int [,]
                     {
-                        {6,6,0},
-                        {0,6,6},
+                        {1,1,0},
+                        {0,1,1},
                     }
                 },
                 new Shape
@@ -91,8 +91,8 @@ namespace TetrisPrototype
                     shapeColor = 0xFFFFC75F,
                     Dots = new int [,]
                     {
-                        {0,7,7},
-                        {7,7,0},
+                        {0,1,1},
+                        {1,1,0},
                     }
                 }
             };

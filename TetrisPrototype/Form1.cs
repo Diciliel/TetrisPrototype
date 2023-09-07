@@ -19,7 +19,8 @@ namespace TetrisPrototype
 
             loadCanvas();
 
-            currentShape = getRandomShapeWithCenterAligned();
+            var currentShape2 = getRandomShapeWithCenterAligned();
+            currentShape = new Shape(currentShape2);
 
             timer.Tick += timer1_Tick;
             timer.Interval = 400;
@@ -36,13 +37,13 @@ namespace TetrisPrototype
         int canvasWidth = 10;
         int canvasHeight = 20;
         int[,] canvasDotArray;
+        uint[,] canvasShapeColor;
         int dotSize = 20;
         int currentX;
         int currentY;
         int score;
         Shape currentShape;
         Shape nextShape;
-        Shape canvasShape;
         Timer timer = new Timer();
 
         private void loadCanvas()
@@ -61,6 +62,7 @@ namespace TetrisPrototype
             pictureBox1.Image = canvasBitmap;
 
             canvasDotArray = new int[canvasWidth, canvasHeight];
+            canvasShapeColor = new uint[canvasWidth, canvasHeight];
         }
         private Shape getRandomShapeWithCenterAligned()
         {
@@ -121,6 +123,7 @@ namespace TetrisPrototype
                     {
                         checkIfGameOver();
                         canvasDotArray[currentX + i, currentY + j] = 1;
+                        canvasShapeColor[currentX + i, currentY + j] = currentShape.shapeColor;                  
                     }
                 }
             }
@@ -143,9 +146,9 @@ namespace TetrisPrototype
                 canvasBitmap = new Bitmap(workingBitmap);
                 updateCanvasDotArrayWithCurrentShape();
 
-                currentShape = getRandomShapeWithCenterAligned();
+               // currentShape = getRandomShapeWithCenterAligned();
 
-                currentShape = nextShape;
+                currentShape = new Shape(nextShape);
                 nextShape = getNextShape();
 
                 clearFilledRowAndUpdateScore();
@@ -217,7 +220,7 @@ namespace TetrisPrototype
                 for (int j = 0; j < canvasHeight; j++)
                 {
                     canvasGraphics = Graphics.FromImage(canvasBitmap); // 1 e esitse blue boya degilse gray boya.
-                    Brush br = new SolidBrush(Color.FromArgb((int)currentShape.shapeColor));
+                    Brush br = new SolidBrush(Color.FromArgb((int)canvasShapeColor[i, j]));
                     canvasGraphics.FillRectangle(canvasDotArray[i, j] == 1 ? br : Brushes.LightGray, i * dotSize + 1, j * dotSize + 1, dotSize - 2, dotSize - 2);                    
                 }
             }
@@ -249,7 +252,7 @@ namespace TetrisPrototype
                 for (int j = 0; j < shape.Width; j++)
                 {
                    Brush br = new SolidBrush(Color.FromArgb((int)shape.shapeColor));
-                   nextShapeGraphics.FillRectangle(shape.Dots[i, j] > 0 ? br: Brushes.LightGray, (startX+j) * dotSize + 1, (startY+i) * dotSize + 1, dotSize - 2, dotSize - 2);
+                   nextShapeGraphics.FillRectangle(shape.Dots[i, j] == 1 ? br: Brushes.LightGray, (startX+j) * dotSize + 1, (startY+i) * dotSize + 1, dotSize - 2, dotSize - 2);
                 }
             }
             pictureBox2.Size= nextShapeBitmap.Size;
