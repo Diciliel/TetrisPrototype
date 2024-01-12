@@ -96,7 +96,7 @@ namespace TetrisPrototype
             return true;
         }
         private void drawShape() 
-        {
+        { 
             workingBitmap = new Bitmap(canvasBitmap);
             workingGraphics = Graphics.FromImage(workingBitmap);
 
